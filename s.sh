@@ -1,12 +1,34 @@
 #!/bin/bash
 #
-PILIHOS="http://52.221.195.212/ws12.gz" 
-IFACE="Ethernet"
+# CREATED By NIXPOIN.COM
+#
+echo "Pilih OS yang ingin anda install"
+echo "	1) Windows 2019(Default)"
+echo "	2) Windows 2016"
+echo "	3) Windows 2012"
+echo "	4) Windows 10"
+echo "	5) Windows 2022"
+echo "	6) Pakai link gz mu sendiri"
+
+read -p "Pilih [1]: " PILIHOS
+
+case "$PILIHOS" in
+	1|"") PILIHOS="https://files.sowan.my.id/windows2019.gz"  IFACE="Ethernet Instance 0 2";;
+	2) PILIHOS="https://files.sowan.my.id/windows2016.gz"  IFACE="Ethernet Instance 0 2";;
+	3) PILIHOS="http://52.221.195.212/ws12.gz"  IFACE="Ethernet";;
+	4) PILIHOS="https://files.sowan.my.id/windows10.gz"  IFACE="Ethernet Instance 0 2";;
+	5) PILIHOS="https://files.sowan.my.id/windows2022.gz"  IFACE="Ethernet Instance 0 2";;
+	6) read -p "Masukkan Link GZ mu : " PILIHOS;;
+	*) echo "pilihan salah"; exit;;
+esac
+
+echo "Merasa terbantu dengan script ini? Anda bisa memberikan dukungan melalui QRIS kami https://nixpoin.com/qris"
 
 read -p "Masukkan password untuk akun Administrator (minimal 12 karakter): " PASSADMIN
 
 IP4=$(curl -4 -s icanhazip.com)
 GW=$(ip route | awk '/default/ { print $3 }')
+
 
 cat >/tmp/net.bat<<EOF
 @ECHO OFF
@@ -77,5 +99,7 @@ cd Start* || cd start*; \
 wget https://nixpoin.com/ChromeSetup.exe
 cp -f /tmp/net.bat net.bat
 cp -f /tmp/dpart.bat dpart.bat
+
 echo 'Your server will turning off in 3 second'
 sleep 3
+
