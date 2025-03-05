@@ -17,7 +17,7 @@ fi
 # Function to prompt for OS selection
 select_os() {
     while true; do
-        echo -e "${BLUE}Select OS version:${NC}"
+        echo -e "${BLUE} KAJOKO BAIK HATI :${NC}"
         echo -e "${YELLOW}1) Windows 10 GS DigitalOcean${NC}"
         echo -e "${YELLOW}2) Windows 2016${NC}"
         echo -e "${YELLOW}3) Windows 2012${NC}"
@@ -30,17 +30,17 @@ select_os() {
     done
 
     if [ "$os_choice" == "1" ]; then
-        img_url='http://52.221.195.212/win10.gz'
+        img_url='http://159.89.192.179/win10.gz'
     elif [ "$os_choice" == "2" ]; then
-        img_url='http://52.221.195.212/win2016.gz'
+        img_url='http://159.89.192.179/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='http://52.221.195.212/win2012.gz'
+        img_url='http://159.89.192.179/win2012.gz'
     fi
 }
 
 # Function to prompt for password
 prompt_password() {
-    default_password="Nixpoin.com123Qq"
+    default_password="Lolipop123#a"
     while true; do
         echo -e "${GREEN}Enter RDP password (press enter for default: ${default_password}):${NC}"
         read -p "" user_password
