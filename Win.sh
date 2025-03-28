@@ -30,11 +30,11 @@ select_os() {
     done
 
     if [ "$os_choice" == "1" ]; then
-        img_url='ikipou.email/win10.gz'
+        img_url='joko/win10.gz'
     elif [ "$os_choice" == "2" ]; then
-        img_url='ikipou.email/win2016.gz'
+        img_url='joko/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='ikipou.email/win2012.gz'
+        img_url='joko/win2012.gz'
     fi
 }
 
