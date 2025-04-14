@@ -34,7 +34,7 @@ select_os() {
     elif [ "$os_choice" == "2" ]; then
         img_url='joko/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='jok.ikipou.email/win2012.gz'
+        img_url='http://159.89.192.179/win2012.gz'
     fi
 }
 
