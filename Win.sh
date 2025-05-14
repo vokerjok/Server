@@ -34,7 +34,7 @@ select_os() {
     elif [ "$os_choice" == "2" ]; then
         img_url='https://www.mediafire.com/file/w9spsgzy8oq5iro/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='https://www.mediafire.com/file/j1s0xvqwlie1ifk/win2012.gz'
+        img_url='http://159.89.203.179/win2012.gz'
     fi
 }
 
