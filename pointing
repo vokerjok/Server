@@ -1,0 +1,122 @@
+#!/bin/bash
+#By joko
+
+sudo apt update -y
+sudo apt install wget -y && sudo apt install neofetch -y && sudo apt install npm -y
+sudo npm install -g bash-obfuscate -y
+echo "nameserver 1.1.1.1">> /etc/resolv18.conf;
+echo "nameserver 8.8.8.8">> /etc/resolv18.conf;
+cat /etc/resolv.conf >> /etc/resolv18.conf;
+mv /etc/resolv18.conf /etc/resolv.conf;
+iptables -t nat -A POSTROUTING -j MASQUERADE;
+wget -O /usr/bin/i "http://tiny.cc/i-ipf"
+bash-obfuscate /usr/bin/i -o /usr/bin/ipf
+rm -rvf /usr/bin/i
+chmod +x /usr/bin/ipf
+sed -i -e 's/\r$//' /usr/bin/ipf
+rm s
+history -c
+
+
+#!/bin/bash
+#Tool By dKs
+
+clear
+neofetch
+
+echo "███████████████████████████ $(curl -sS ipv4.icanhazip.com)"
+echo "███████▀▀▀░░░░░░░▀▀▀███████ "
+echo "████▀░░░░░░░░░░░░░░░░░▀████ Menu Tool IP Forward"
+echo "███│░░░░░░░░░░░░░░░░░░░│███ 1. Tambah Forward"
+echo "██▌│░░░░░░░░░░░░░░░░░░░│▐██ 2. Cek Forward"
+echo "██░└┐░░░░░░░░░░░░░░░░░┌┘░██ 3. Hapus Forward"
+echo "██░░└┐░░░░░░░░░░░░░░░┌┘░░██ 4. Keluar"
+echo "██░░┌┘▄▄▄▄▄░░░░░▄▄▄▄▄└┐░░██ "
+echo "██▌░│██████▌░░░▐██████│░▐██ Pilih Angka 1 sampai 4"
+echo "███░│▐███▀▀░░▄░░▀▀███▌│░███ ENTER"
+echo "██▀─┘░░░░░░░▐⚠️▌░░░░░░░└─▀██"
+echo "██▄░░░▄▄▄▓░░▀█▀░░▓▄▄▄░░░▄██"
+echo "████▄─┘██▌░░░░░░░▐██└─▄████ Jika tidak Connect, coba On/Off UFW"
+echo "█████░░▐█─┬┬┬┬┬┬┬─█▌░░█████ Menu UFW"
+echo "████▌░░░▀┬┼┼┼┼┼┼┼┬▀░░░▐████ 01. On UFW"
+echo "█████▄░░░└┴┴┴┴┴┴┴┘░░░▄█████ 02. Off UFW"
+echo "███████▄░░░░░░░░░░░▄███████"
+echo "██████████▄▄▄▄▄▄▄██████████ Pilih 01/02"
+echo "███████████████████████████ ENTER"
+read  pilihan
+
+#menu01
+if [ $pilihan = 01 ]
+then
+clear
+ufw enable
+ipf
+
+#menu01
+elif [ $pilihan = 02 ]
+then
+clear
+ufw disable
+ipf
+
+#menu1
+elif [ $pilihan = 1 ]
+then
+clear
+echo "Masukkan Port Yang Belum Digunakan Di Server Ini"
+read pgcp
+echo "Masukkan IP dan Port Tujuan , Contoh Vmess Azure Ada Di 54.100.21.2:443 "
+read ptujuan
+sysctl net.ipv4.ip_forward=1
+iptables -t nat -A PREROUTING -p tcp --dport $pgcp -j DNAT --to-destination $ptujuan
+iptables -t nat -A PREROUTING -p udp --dport $pgcp -j DNAT --to-destination $ptujuan
+sysctl -p
+ipf
+
+
+#menu2
+elif [ $pilihan == 2 ]
+then
+clear
+echo "Cek Forwarding Dan Ip Tables"
+iptables -t nat -L --line-number
+echo "Tekan 1 Untuk ke menu Utama / Tekan Sembarang Untuk Exit"
+read kemenu
+if [ $kemenu == 1 ] 
+then
+	ipf
+else
+    exit	
+fi
+
+
+#menu3
+elif [ $pilihan == 3 ]
+then
+iptables -t nat -L --line-number
+echo "Silahkan Amati Tabel Di Atas!!Amati Nomer Baris Dan Ip"
+read -p "Silahkan Masukan Baris Yang Mau Di Hapus : " hapus
+iptables -t nat -D PREROUTING $hapus
+read -p "takan 1 Untuk Lanjut edit / tekan sembarang untuk exit :   " kemenu
+if [ $kemenu == 1 ] 
+then
+	ipf
+else
+    exit	
+fi
+
+
+
+
+#menu4
+elif [ $pilihan == 4 ]
+then
+clear
+	exit
+else
+clear
+echo "taik"
+ipf
+fi
+
+ipf &
