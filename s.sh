@@ -22,7 +22,7 @@ select_os() {
         echo -e "${YELLOW}2) Windows 2016${NC}"
         echo -e "${YELLOW}3) Windows 2012${NC}"
         read -p "Enter choice : " os_choice
-        if  "$os_choice" =~ ^[1-3]$ ; then
+        if [[ "$os_choice" =~ ^[1-3]$ ]]; then
             break
         else
             echo -e "${RED}Invalid selection. Please enter 1 or 2.${NC}"
@@ -48,7 +48,7 @@ prompt_password() {
         break
         
         # Password strength check
-#         if  "$password" =~ ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$ ; then
+#         if [[ "$password" =~ ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$ ]]; then
 #             break
 #         else
 #             echo -e "${RED}Password must be at least 8 characters long and include uppercase, lowercase, and numbers.${NC}"
@@ -77,7 +77,7 @@ execute_reinstall_script() {
 # Confirm reboot
 confirm_reboot() {
     read -p "Are you sure you want to reboot now? (y/n): " confirm_reboot
-    if  "$confirm_reboot" == "y" || "$confirm_reboot" == "Y" ; then
+    if [[ "$confirm_reboot" == "y" || "$confirm_reboot" == "Y" ]]; then
         echo -e "${YELLOW}Rebooting in 5 seconds...${NC}"
         sleep 5
         reboot
