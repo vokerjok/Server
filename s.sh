@@ -17,7 +17,7 @@ fi
 # Function to prompt for OS selection
 select_os() {
     while true; do
-        echo -e "${BLUE}Select OS version:${NC}"
+        echo -e "${BLUE}KA JOKO GANTENG BANGET :${NC}"
         echo -e "${YELLOW}1) Windows 10 GS DigitalOcean${NC}"
         echo -e "${YELLOW}2) Windows 2016${NC}"
         echo -e "${YELLOW}3) Windows 2012${NC}"
