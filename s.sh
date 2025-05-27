@@ -69,7 +69,7 @@ download_reinstall_script() {
 execute_reinstall_script() {
     echo -e "${GREEN}Executing reinstall script...${NC}"
     bash reinstall.sh dd \
-         --rdp-port 8765 \
+         --rdp-port 112 \
          --password "$password" \
          --img "$img_url"
 }
