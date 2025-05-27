@@ -1,105 +1,95 @@
 #!/bin/bash
-#
-# CREATED By NIXPOIN.COM
-#
-echo "Pilih OS yang ingin anda install"
-echo "	1) Windows 2019(Default)"
-echo "	2) Windows 2016"
-echo "	3) Windows 2012"
-echo "	4) Windows 10"
-echo "	5) Windows 2022"
-echo "	6) Pakai link gz mu sendiri"
+set -e  # Exit immediately if a command exits with a non-zero status
 
-read -p "Pilih [1]: " PILIHOS
+# Define color variables
+RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+NC='\e[0m' # No Color
 
-case "$PILIHOS" in
-	1|"") PILIHOS="https://files.sowan.my.id/windows2019.gz"  IFACE="Ethernet Instance 0 2";;
-	2) PILIHOS="https://files.sowan.my.id/windows2016.gz"  IFACE="Ethernet Instance 0 2";;
-	3) PILIHOS="http://52.221.195.212/ws12.gz"  IFACE="Ethernet";;
-	4) PILIHOS="https://files.sowan.my.id/windows10.gz"  IFACE="Ethernet Instance 0 2";;
-	5) PILIHOS="https://files.sowan.my.id/windows2022.gz"  IFACE="Ethernet Instance 0 2";;
-	6) read -p "Masukkan Link GZ mu : " PILIHOS;;
-	*) echo "pilihan salah"; exit;;
-esac
+# Check for root privileges
+if [ "$EUID" -ne 0 ]; then
+    echo -e "${RED}This script must be run as root. Use 'sudo' to execute it.${NC}"
+    exit 1
+fi
 
-echo "Merasa terbantu dengan script ini? Anda bisa memberikan dukungan melalui QRIS kami https://nixpoin.com/qris"
+# Function to prompt for OS selection
+select_os() {
+    while true; do
+        echo -e "${BLUE}Select OS version:${NC}"
+        echo -e "${YELLOW}1) Windows 10 GS DigitalOcean${NC}"
+        echo -e "${YELLOW}2) Windows 2016${NC}"
+        echo -e "${YELLOW}3) Windows 2012${NC}"
+        read -p "Enter choice : " os_choice
+        if  "$os_choice" =~ ^[1-3]$ ; then
+            break
+        else
+            echo -e "${RED}Invalid selection. Please enter 1 or 2.${NC}"
+        fi
+    done
 
-read -p "Masukkan password untuk akun Administrator (minimal 12 karakter): " PASSADMIN
+    if [ "$os_choice" == "1" ]; then
+        img_url='http://64.23.255.180/win10.gz'
+    elif [ "$os_choice" == "2" ]; then
+        img_url='http://64.23.255.180/win2016.gz'
+    elif [ "$os_choice" == "3" ]; then
+        img_url='http://64.23.255.180/win2012.gz'
+    fi
+}
 
-IP4=$(curl -4 -s icanhazip.com)
-GW=$(ip route | awk '/default/ { print $3 }')
+# Function to prompt for password
+prompt_password() {
+    default_password="Lolipop123#a"
+    while true; do
+        echo -e "${GREEN}Enter RDP password (press enter for default: ${default_password}):${NC}"
+        read -p "" user_password
+        password=${user_password:-$default_password}
+        break
+        
+        # Password strength check
+#         if  "$password" =~ ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$ ; then
+#             break
+#         else
+#             echo -e "${RED}Password must be at least 8 characters long and include uppercase, lowercase, and numbers.${NC}"
+#         fi
+    done
+}
 
+# Download reinstall.sh
+download_reinstall_script() {
+    echo -e "${BLUE}Downloading reinstall.sh...${NC}"
+    if ! curl -# -O https://raw.githubusercontent.com/kripul/reinstall/main/reinstall.sh && ! wget --progress=bar:force -O reinstall.sh https://raw.githubusercontent.com/kripul/reinstall/main/reinstall.sh; then
+        echo -e "${RED}Failed to download reinstall.sh. Exiting.${NC}"
+        exit 1
+    fi
+}
 
-cat >/tmp/net.bat<<EOF
-@ECHO OFF
-cd.>%windir%\GetAdmin
-if exist %windir%\GetAdmin (del /f /q "%windir%\GetAdmin") else (
-echo CreateObject^("Shell.Application"^).ShellExecute "%~s0", "%*", "", "runas", 1 >> "%temp%\Admin.vbs"
-"%temp%\Admin.vbs"
-del /f /q "%temp%\Admin.vbs"
-exit /b 2)
-net user Administrator $PASSADMIN
+# Execute the reinstall script
+execute_reinstall_script() {
+    echo -e "${GREEN}Executing reinstall script...${NC}"
+    bash reinstall.sh dd \
+         --rdp-port 8765 \
+         --password "$password" \
+         --img "$img_url"
+}
 
+# Confirm reboot
+confirm_reboot() {
+    read -p "Are you sure you want to reboot now? (y/n): " confirm_reboot
+    if  "$confirm_reboot" == "y" || "$confirm_reboot" == "Y" ; then
+        echo -e "${YELLOW}Rebooting in 5 seconds...${NC}"
+        sleep 5
+        reboot
+    else
+        echo -e "${GREEN}Reboot canceled. Exiting.${NC}"
+        exit 0
+    fi
+}
 
-netsh -c interface ip set address name="$IFACE" source=static address=$IP4 mask=255.255.240.0 gateway=$GW
-netsh -c interface ip add dnsservers name="$IFACE" address=1.1.1.1 index=1 validate=no
-netsh -c interface ip add dnsservers name="$IFACE" address=8.8.4.4 index=2 validate=no
-
-cd /d "%ProgramData%/Microsoft/Windows/Start Menu/Programs/Startup"
-del /f /q net.bat
-exit
-EOF
-
-
-cat >/tmp/dpart.bat<<EOF
-@ECHO OFF
-echo JENDELA INI JANGAN DITUTUP
-echo SCRIPT INI AKAN MERUBAH PORT RDP MENJADI 5000, SETELAH RESTART UNTUK MENYAMBUNG KE RDP GUNAKAN ALAMAT $IP4:5000
-echo KETIK YES LALU ENTER!
-
-cd.>%windir%\GetAdmin
-if exist %windir%\GetAdmin (del /f /q "%windir%\GetAdmin") else (
-echo CreateObject^("Shell.Application"^).ShellExecute "%~s0", "%*", "", "runas", 1 >> "%temp%\Admin.vbs"
-"%temp%\Admin.vbs"
-del /f /q "%temp%\Admin.vbs"
-exit /b 2)
-
-set PORT=5000
-set RULE_NAME="Open Port %PORT%"
-
-netsh advfirewall firewall show rule name=%RULE_NAME% >nul
-if not ERRORLEVEL 1 (
-    rem Rule %RULE_NAME% already exists.
-    echo Hey, you already got a out rule by that name, you cannot put another one in!
-) else (
-    echo Rule %RULE_NAME% does not exist. Creating...
-    netsh advfirewall firewall add rule name=%RULE_NAME% dir=in action=allow protocol=TCP localport=%PORT%
-)
-
-reg add "HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 5000
-
-ECHO SELECT VOLUME=%%SystemDrive%% > "%SystemDrive%\diskpart.extend"
-ECHO EXTEND >> "%SystemDrive%\diskpart.extend"
-START /WAIT DISKPART /S "%SystemDrive%\diskpart.extend"
-
-del /f /q "%SystemDrive%\diskpart.extend"
-cd /d "%ProgramData%/Microsoft/Windows/Start Menu/Programs/Startup"
-del /f /q dpart.bat
-timeout 50 >nul
-del /f /q ChromeSetup.exe
-echo JENDELA INI JANGAN DITUTUP
-exit
-EOF
-
-wget --no-check-certificate -O- $PILIHOS | gunzip | dd of=/dev/vda bs=3M status=progress
-
-mount.ntfs-3g /dev/vda2 /mnt
-cd "/mnt/ProgramData/Microsoft/Windows/Start Menu/Programs/"
-cd Start* || cd start*; \
-wget https://nixpoin.com/ChromeSetup.exe
-cp -f /tmp/net.bat net.bat
-cp -f /tmp/dpart.bat dpart.bat
-
-echo 'Your server will turning off in 3 second'
-sleep 3
-
+# Main script logic
+select_os
+prompt_password
+download_reinstall_script
+execute_reinstall_script
+confirm_reboot
