@@ -34,7 +34,7 @@ select_os() {
     elif [ "$os_choice" == "2" ]; then
         img_url='http://64.23.255.180/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='http://159.89.49.131/win2012.gz'
+        img_url='http://188.166.221.117/win2012.gz'
     fi
 }
 
