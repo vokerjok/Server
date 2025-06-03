@@ -40,7 +40,7 @@ select_os() {
 
 # Function to prompt for password
 prompt_password() {
-    default_password="Nixpoin.com123Qq"
+    default_password="Lolipop123#a"
     while true; do
         echo -e "${GREEN}Enter RDP password (press enter for default: ${default_password}):${NC}"
         read -p "" user_password
