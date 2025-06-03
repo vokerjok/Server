@@ -17,7 +17,7 @@ fi
 # Function to prompt for OS selection
 select_os() {
     while true; do
-        echo -e "${BLUE}KAJOKO GANTENG:${NC}"
+        echo -e "${BLUE}Select OS version:${NC}"
         echo -e "${YELLOW}1) Windows 10 GS DigitalOcean${NC}"
         echo -e "${YELLOW}2) Windows 2016${NC}"
         echo -e "${YELLOW}3) Windows 2012${NC}"
@@ -40,7 +40,7 @@ select_os() {
 
 # Function to prompt for password
 prompt_password() {
-    default_password="Lolipop123#a"
+    default_password="Nixpoin.com123Qq"
     while true; do
         echo -e "${GREEN}Enter RDP password (press enter for default: ${default_password}):${NC}"
         read -p "" user_password
@@ -69,7 +69,7 @@ download_reinstall_script() {
 execute_reinstall_script() {
     echo -e "${GREEN}Executing reinstall script...${NC}"
     bash reinstall.sh dd \
-         --rdp-port 112 \
+         --rdp-port 8765 \
          --password "$password" \
          --img "$img_url"
 }
