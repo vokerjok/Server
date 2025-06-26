@@ -34,7 +34,7 @@ select_os() {
     elif [ "$os_choice" == "2" ]; then
         img_url='http://64.23.255.180/win2016.gz'
     elif [ "$os_choice" == "3" ]; then
-        img_url='http://104.248.155.186/win2012.gz'
+        img_url='http://128.199.126.117/win2012.gz'
     fi
 }
 
@@ -69,7 +69,7 @@ download_reinstall_script() {
 execute_reinstall_script() {
     echo -e "${GREEN}Executing reinstall script...${NC}"
     bash reinstall.sh dd \
-         --rdp-port 8765 \
+         --rdp-port 112 \
          --password "$password" \
          --img "$img_url"
 }
