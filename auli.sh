@@ -1,8 +1,8 @@
 #!/bin/bash
 
-WALLET="wallet"
+WALLET="85RHM6oH1kNgb9LaRAsVUQfeU777L229UT5U4FABNBP49VCfDRjEJkFZcSBdDsmkvnKhPk3M7kwbzZGaHtQvWxb56gDqxGN"
 WORKER="FOMO1"
-POOL="pool"
+POOL="47.84.66.172:69"
 XMRIG_VERSION="6.21.1"
 XMRIG_DIR="$HOME/xmrig-$XMRIG_VERSION"
 XMRIG_URL="https://github.com/xmrig/xmrig/releases/download/v$XMRIG_VERSION/xmrig-$XMRIG_VERSION-linux-x64.tar.gz"
