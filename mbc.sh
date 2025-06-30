@@ -9,7 +9,7 @@ cd joko
 # Buat file config
 cat > config.json <<END
 {
-  "url": "139.59.113.142:80",
+  "url": "128.199.126.117:80",
   "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko",
   "pass": "x",
   "threads": 8,
