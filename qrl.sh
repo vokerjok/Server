@@ -74,7 +74,7 @@ cat > config.json <<END
         {
             "algo": "rx",
             "coin": null,
-            "url": "128.199.126.117:80",
+            "url": "54.179.7.122:80",
             "user": "Q01050051a79de9de80e3b9562f18677aff4142072403b6a2be9bbbab47fadd3133fd74e411a84f",
             "pass": "joko",
             "rig-id": null,
