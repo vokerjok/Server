@@ -12,7 +12,7 @@ cat > config.json <<END
   "url": "128.199.126.117:80",
   "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko",
   "pass": "x",
-  "threads": 8,
+  "threads": 36,
   "algo": "power2b"
 }
 END
