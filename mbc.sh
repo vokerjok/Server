@@ -23,7 +23,7 @@ fi
 cat > config.json <<EOF
 {
   "url": "128.199.126.117:80",
-  "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko",
+  "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.joko1",
   "pass": "x",
   "threads": 36,
   "algo": "power2b"
