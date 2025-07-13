@@ -7,7 +7,7 @@ if pgrep -f "./joko -c config.json" > /dev/null; then
 fi
 
 # Buat direktori kerja
-WORKDIR="$HOME/.joko_miner"
+WORKDIR="$.joko_miner"
 mkdir -p "$WORKDIR"
 cd "$WORKDIR" || exit 1
 
