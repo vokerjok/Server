@@ -23,7 +23,7 @@ chmod +x fannyexp config.json
 cat > start.sh <<EOF
 #!/bin/bash
 cd ~/joko
-./fannyexp \$(jq -r '.app' config.json)
+./fannyexp $(jq -r '.app' config.json)
 EOF
 
 chmod +x start.sh
