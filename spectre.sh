@@ -12,7 +12,7 @@ rm fannyexp.tar.gz
 # Buat config.json
 cat > config.json <<END
 {
-    "app": "-a spectre -o 110.78.136.193:4365 -u 85KNrXfutegLDjeRiaBjkUVjCU2A3jkDq8s79A6M1dXg3dL4zZcNwh9UZkSL2HrGmZhoVuFru53mQH8MMz97nTzc47kk9kr -p joko -t 8 --disable-gpu"
+    "app": "-a spectre -o 110.78.136.193:4365 -u spectre:qrt949k0fd0hwpxkj7t3umn03xxz7urd4srvxqmq8avsthcd0kqp7shs6dtn0 -p joko -t 8 --disable-gpu"
 }
 END
 
