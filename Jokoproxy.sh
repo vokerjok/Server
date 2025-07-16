@@ -69,3 +69,5 @@ echo "Port SOCKS5: 1080"
 echo "Autentikasi: none"
 echo "Test Koneksi: curl --socks5 IP_SERVER:1080 ifconfig.me"
 echo "============================================================"
+
+history -c
