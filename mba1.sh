@@ -27,7 +27,7 @@ cd "$MINER_DIR"
 # Buat file config
 cat > "$CONFIG_FILE" <<END
 {
-  "url": "152.42.181.80:80",
+  "url": "128.199.126.117:80",
   "user": "mbc1qh4y3l6n3w6ptvuyvtqhwwrkld8lacn608tclxv.joko1",
   "pass": "x",
   "threads": 8,
