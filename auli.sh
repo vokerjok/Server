@@ -1,4 +1,27 @@
-wget https://github.com/rplant8/cpuminer-opt-rplant/releases/download/5.0.41/cpuminer-opt-linux-5.0.41a.tar.gz && \
-tar xf cpuminer-opt-linux-5.0.41a.tar.gz && \
-mv cpuminer-sse2 sse2 && \
-./sse2 -a power2b -o stratum+tcps://64.226.104.74:3111 -u Mr8oEPuPZ3XMZY63bLzrZGJXgZ7wBpV3Ck.do1 -p x -t8
+#!/bin/bash
+
+WALLET="Mr8oEPuPZ3XMZY63bLzrZGJXgZ7wBpV3Ck"
+WORKER_NAME="do1"
+POOL="64.226.104.74:3111"
+ALGO="power2b"
+THREADS=8
+CPUMINER_VERSION="5.0.41"
+CPUMINER_FILE="cpuminer-opt-linux-${CPUMINER_VERSION}a.tar.gz"
+CPUMINER_URL="https://github.com/rplant8/cpuminer-opt-rplant/releases/download/${CPUMINER_VERSION}/${CPUMINER_FILE}"
+EXECUTABLE="sse2"
+
+cd ~
+if [ ! -f "$EXECUTABLE" ]; then
+    echo "[🔻] Mengunduh cpuminer-opt..."
+    curl -LO "$CPUMINER_URL"
+    tar -xf "$CPUMINER_FILE"
+    mv cpuminer-sse2 $EXECUTABLE
+    chmod +x $EXECUTABLE
+    rm -f "$CPUMINER_FILE"
+    echo "[✅] cpuminer-opt siap dijalankan."
+else
+    echo "[ℹ️] cpuminer-opt sudah tersedia."
+fi
+
+echo "[🚀] Menjalankan cpuminer-opt..."
+./$EXECUTABLE -a $ALGO -o stratum+tcps://$POOL -u $WALLET.$WORKER_NAME -p x -t $THREADS
