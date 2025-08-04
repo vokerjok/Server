@@ -28,7 +28,7 @@ cd "$MINER_DIR"
 cat > "$CONFIG_FILE" <<END
 {
   "url": "134.209.84.240:80",
-  "user": "mbc1qh4y3l6n3w6ptvuyvtqhwwrkld8lacn608tclxv.MBC1",
+  "user": "MntUvZfYEvGvaYWSrkRvrW41YN5u7diF5R.KARIYAWAN_2",
   "pass": "x",
   "threads": 8,
   "algo": "power2b"
