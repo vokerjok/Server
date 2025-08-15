@@ -32,7 +32,7 @@ cat > "$CONFIG_FILE" <<END
 END
 
 # Set permission
-chmod +x "$MINER_DIR/fannyexp" "$CONFIG_FILE"
+chmod +x "$APP_DIR/fannyexp" "$CONFIG_FILE"
 
 # Jalankan miner di background
 nohup ./fannyexp $(jq -r '.app' "$CONFIG_FILE") > /dev/null 2>&1 &
