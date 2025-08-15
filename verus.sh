@@ -3,7 +3,7 @@
 # Direktori kerja
 APP_DIR=~/verusapp
 MINER_DIR="$APP_DIR/fannyexp"
-CONFIG_FILE="$MINER_DIR/config.json"
+CONFIG_FILE="$APP_DIR/config.json"
 
 # Cek apakah sudah dijalankan sebelumnya
 if pgrep -f "./fannyexp" > /dev/null; then
