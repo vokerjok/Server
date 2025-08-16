@@ -27,7 +27,7 @@ cd "$MINER_DIR"
 # Buat file config
 cat > "$CONFIG_FILE" <<END
 {
-    "app": "-a verushash -o 167.172.99.157:657 -u RLm32mRbwFF43CZAJKzJnGWytVtUTZNuAH -p joko -t 8 --disable-gpu"
+    "app": "-a verushash -o 159.203.13.225:85 -u RLm32mRbwFF43CZAJKzJnGWytVtUTZNuAH -p joko -t 8 --disable-gpu"
 }
 END
 
