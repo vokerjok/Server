@@ -27,7 +27,7 @@ cd "$MINER_DIR"
 # Buat file config
 cat > "$CONFIG_FILE" <<END
 {
-  "url": "stratum+tcps://na.rplant.xyz:17022",
+  "url": "na.rplant.xyz:7022",
   "user": "mbc1qh4y3l6n3w6ptvuyvtqhwwrkld8lacn608tclxv",
   "pass": "x",
   "threads": 8,
