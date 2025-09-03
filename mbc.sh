@@ -27,8 +27,8 @@ cd "$MINER_DIR"
 # Buat file config
 cat > "$CONFIG_FILE" <<END
 {
-  "url": "165.227.36.232:443",
-  "user": "mbc1qh4y3l6n3w6ptvuyvtqhwwrkld8lacn608tclxv.kuroka",
+  "url": "129.212.185.248:2090",
+  "user": "mbc1qh4y3l6n3w6ptvuyvtqhwwrkld8lacn608tclxv",
   "pass": "x",
   "threads": 8,
   "algo": "power2b"
