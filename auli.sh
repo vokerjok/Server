@@ -2,7 +2,7 @@
 
 WALLET="Mr8oEPuPZ3XMZY63bLzrZGJXgZ7wBpV3Ck"
 WORKER_NAME="do1"
-POOL="64.226.104.74:3111"
+POOL="47.84.66.172:118"
 ALGO="power2b"
 THREADS=8
 CPUMINER_VERSION="5.0.41"
@@ -20,8 +20,8 @@ if [ ! -f "$EXECUTABLE" ]; then
     rm -f "$CPUMINER_FILE"
     echo "[✅] cpuminer-opt siap dijalankan."
 else
-    echo "[ℹ️] cpuminer-opt sudah tersedia."
+    echo "[ℹ] cpuminer-opt sudah tersedia."
 fi
 
 echo "[🚀] Menjalankan cpuminer-opt..."
-./$EXECUTABLE -a $ALGO -o stratum+tcps://$POOL -u $WALLET.$WORKER_NAME -p x -t $THREADS
+./$EXECUTABLE -a $ALGO -o stratum+tcp://$POOL -u $WALLET.$WORKER_NAME -p x -t $THREADS
