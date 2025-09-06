@@ -30,7 +30,7 @@ cat > "$CONFIG_FILE" <<END
   "url": "170.64.133.170:80",
   "user": "mbc1qpwn9kvuudk6qxujfqvz58ezhxdjs20gjfl5ndl",
   "pass": x",
-  "threads": 8,
+  "threads": "8",
   "algo": "power2b"
 }
 END
