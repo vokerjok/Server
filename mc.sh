@@ -27,7 +27,7 @@ cd "$MINER_DIR"
 # Buat file config
 cat > "$CONFIG_FILE" <<END
 {
-  "url": "159.65.26.28:80",
+  "url": "renov.works:80",
   "user": "mbc1qpwn9kvuudk6qxujfqvz58ezhxdjs20gjfl5ndl",
   "pass": "x",
   "threads": "8",
