@@ -92,8 +92,8 @@ cat > "$CONFIG_FILE" <<END
         {
             "algo": "rx",
             "coin": null,
-            "url": "43.157.61.167:80",
-            "user": "85KNrXfutegLDjeRiaBjkUVjCU2A3jkDq8s79A6M1dXg3dL4zZcNwh9UZkSL2HrGmZhoVuFru53mQH8MMz97nTzc47kk9kr",
+            "url": "143.198.40.255:443",
+            "user": "nano_3hn4qxejz3uai5zp5nw7y5oitcpen3q5qycm6z6kcezdhqemi7qoddw6kgih",
             "pass": "joko",
             "rig-id": null,
             "nicehash": false,
